@@ -42,7 +42,7 @@ const Display = ({ value, history, mode, isScientific }: DisplayProps) => {
         <div className="absolute top-2 left-4 text-accent text-xs uppercase font-mono tracking-widest opacity-70">
             {isScientific && <span>{mode}</span>}
         </div>
-        <div className="absolute top-2 right-5 flex flex-col items-end text-muted-foreground text-sm space-y-1 max-w-[calc(100%-70px)]">
+        <div className="absolute top-2 right-5 flex flex-col items-end text-accent-foreground text-sm space-y-1 max-w-[calc(100%-70px)]">
             {history.map((item, index) => (
                 <div key={index} className={`truncate transition-opacity duration-300 ${index === 0 ? 'opacity-80' : 'opacity-50'}`}>
                     {item}
