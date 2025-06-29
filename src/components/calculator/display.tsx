@@ -4,7 +4,7 @@ import * as React from 'react';
 
 interface DisplayProps {
   value: string;
-  history: string;
+  history: string[];
   mode: string;
   isScientific: boolean;
 }
@@ -38,12 +38,16 @@ const Display = ({ value, history, mode, isScientific }: DisplayProps) => {
   }, [value]);
 
   return (
-    <div ref={displayRef} className="relative bg-black/30 rounded-xl px-6 py-4 text-right overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5),_inset_0_0_10px_rgba(0,0,0,0.5)] h-32 flex flex-col justify-end">
+    <div ref={displayRef} className="relative bg-black/30 rounded-xl px-6 py-4 text-right overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5),_inset_0_0_10px_rgba(0,0,0,0.5)] h-40 flex flex-col justify-end">
         <div className="absolute top-2 left-4 text-accent text-xs uppercase font-mono tracking-widest opacity-70">
             {isScientific && <span>{mode}</span>}
         </div>
-        <div className="absolute top-3 right-5 text-muted-foreground text-lg truncate max-w-[calc(100%-70px)]">
-            {history}
+        <div className="absolute top-2 right-5 flex flex-col items-end text-muted-foreground text-sm space-y-1 max-w-[calc(100%-70px)]">
+            {history.map((item, index) => (
+                <div key={index} className={`truncate transition-opacity duration-300 ${index === 0 ? 'opacity-80' : 'opacity-50'}`}>
+                    {item}
+                </div>
+            ))}
         </div>
       <div
         className="font-light text-primary break-all"

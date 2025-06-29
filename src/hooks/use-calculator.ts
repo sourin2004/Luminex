@@ -120,7 +120,7 @@ const evaluateExpression = (expression: string, mode: Mode): number => {
 
 export const useCalculator = () => {
   const [displayValue, setDisplayValue] = useState('');
-  const [history, setHistory] = useState('');
+  const [history, setHistory] = useState<string[]>([]);
   const [isResult, setIsResult] = useState(false);
   const [memory, setMemory] = useState(0);
   const [mode, setMode] = useState<Mode>('deg');
@@ -129,7 +129,7 @@ export const useCalculator = () => {
 
   const clear = useCallback(() => {
     setDisplayValue('');
-    setHistory('');
+    setHistory([]);
     setIsResult(false);
   }, []);
 
@@ -168,8 +168,11 @@ export const useCalculator = () => {
     try {
         const result = evaluateExpression(displayValue, mode);
         const resultString = String(result);
-        setHistory(`${displayValue} =`);
-        setDisplayValue(resultString.length > 15 ? result.toExponential(9) : resultString);
+        const finalResultString = resultString.length > 15 ? result.toExponential(9) : resultString;
+        
+        const newHistoryEntry = `${displayValue} = ${finalResultString}`;
+        setHistory(prev => [newHistoryEntry, ...prev].slice(0, 3));
+        setDisplayValue(finalResultString);
         setIsResult(true);
     } catch(error: any) {
         toast({

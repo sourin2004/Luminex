@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'NeonMath',
+  title: 'Luminex',
   description: 'A futuristic, glowing scientific calculator',
 };
 
